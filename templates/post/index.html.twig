@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+  
+  <a href="{{path('post_add')}}" class="btn btn-outline-info">Ajouter un article</a>
+  <h1>Les articles</h1>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Contenu</th>
+      <th scope="col">Publication</th>
+      <th scope="col">Image</th>
+      <th scope="col">Lecture</th>
+      <th scope="col">Category</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in posts %}
+    <tr>
+      <th scope="row"><span class="badge badge-warning">#{{post.id}}</span></th>
+      <td>{{post.title}}</td>
+      <td>{{post.body|u.truncate(100,'...') }}</td>
+      <td>{{post.publishedAt|date('d/m/Y')}}</td>
+      <td><img src="{{post.illustration.name}}" alt=""></td>
+      <td><span class="badge badge-dark">{{post.category.description}}</span></td>
+      <td>{{post.getReadingTime()}}</td>
+      <td><a href="{{path('post_delete' , { id : post.id})}}" class="btn btn-outline-danger">Effacer</a></td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+  </tbody>
+</table>
+</div>
+
+{% endblock %}
